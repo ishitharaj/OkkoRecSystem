@@ -1,1 +1,3 @@
-USER_FEATURES = ["age", "income", "sex", "kids_flg"]
+USER_FEATURES = ['age', 'income', 'sex', 'kids_flg']
+ITEM_FEATURES = ['content_type', 'release_year', 'for_kids', 'age_rating']
+DATASET_PATH = "artefacts/data/"
