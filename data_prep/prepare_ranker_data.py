@@ -85,7 +85,7 @@ def get_items_features(item_ids: List[int], item_cols: List[str]) -> Dict[int, A
     item_df.set_index(item_ids, inplace=True)
     result = item_df.to_json(orient="index")
     parsed = loads(result)
-    output = dumps(parsed, indent=3)
+    output = dumps(parsed, indent=4)
 
     """
     EXAMPLE OUTPUT
