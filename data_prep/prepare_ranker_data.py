@@ -1,9 +1,6 @@
 # TODO
 # WRITE PIPELINE FOR DATA PREPARATION IN HERE TO USE FOR RANKER TRAININIG PIPELINE
-from typing import Any, Dict, List
-from configs.config import settings
-import pandas as pd
-import datetime as dt
+from json import loads, dumps
 
 
 def prepare_data_for_train(paths_config: Dict[str, str]):
@@ -71,7 +68,26 @@ def get_items_features(item_ids: List[int], item_cols: List[str]) -> Dict[int, A
     that we used in training (for all candidates)
         :item_ids:  item ids to filter by
         :item_cols: feature cols we need for inference
+    """
 
+    paths_config = {
+        "interactions_data": "artefacts\data\interactions_df.csv",
+        "users_data": "artefacts\data\items.csv",
+        "items_data": "artefacts\data\items.csv",
+    }
+
+    users_data = pd.read_csv(paths_config["users_data"])
+    movies_data = pd.read_csv(paths_config["items_data"])
+    interactions_data = pd.read_csv(paths_config["interactions_data"])
+
+
+    item_df = movies_data[item_ids+item_cols]
+    item_df.set_index(item_ids, inplace=True)
+    result = item_df.to_json(orient="index")
+    parsed = loads(result)
+    output = dumps(parsed, indent=4)
+
+    """
     EXAMPLE OUTPUT
     {
     9169: {
@@ -90,7 +106,7 @@ def get_items_features(item_ids: List[int], item_cols: List[str]) -> Dict[int, A
     }
 
     """
-    pass
+    return output
 
 
 def get_user_features(user_id: int, user_cols: List[str]) -> Dict[str, Any]:
