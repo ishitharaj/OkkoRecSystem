@@ -1,6 +1,13 @@
 # TODO
 # WRITE PIPELINE FOR DATA PREPARATION IN HERE TO USE FOR RANKER TRAININIG PIPELINE
 from json import loads, dumps
+import pandas as pd
+from typing import Any, Dict, List
+from configs.config import settings
+import pandas as pd
+import datetime as dt
+from sklearn.utils import shuffle
+from sklearn.model_selection import train_test_split
 
 
 def prepare_data_for_train(paths_config: Dict[str, str]):
@@ -9,53 +16,41 @@ def prepare_data_for_train(paths_config: Dict[str, str]):
     Basically, you have to wrap up code from full_recsys_pipeline.ipynb
     where we prepare data for classifier. In the end, it should work such
     that we trigger and use fit() method from ranker.py
-
         paths_config: dict, wher key is path name and value is the path to data
     """
-    
-    paths_config = {
-        "interactions_data": "artefacts\data\interactions_df.csv",
-        "users_data": "artefacts\data\items.csv",
-        "items_data": "artefacts\data\items.csv",
-    }
-    
     users_data = pd.read_csv(paths_config["users_data"])
-    movies_data = pd.read_csv(paths_config["items_data"])
-    interactions_data = pd.read_csv(paths_config["interactions_data"])
+    movies_metadata = pd.read_csv(paths_config["items_data"])
+    interactions = pd.read_csv(paths_config["interactions_data"])
     
-    # # remove redundant data points
-    # interactions_filtered = interactions_data.loc[interactions_data['total_dur'] > 300].reset_index(drop = True)
+    # remove redundant data points
+    interactions_filtered = interactions.loc[interactions['total_dur'] > 300].reset_index(drop = True)
     
-    # interactions_filtered['last_watch_dt'] = pd.to_datetime(interactions_filtered['last_watch_dt'])
+    interactions_filtered['last_watch_dt'] = pd.to_datetime(interactions_filtered['last_watch_dt'])
     
-    # # set dates params for filter
-    # MAX_DATE = interactions_filtered['last_watch_dt'].max()
-    # MIN_DATE = interactions_filtered['last_watch_dt'].min()
-    # TEST_INTERVAL_DAYS = 14
+    # set dates params for filter
+    MAX_DATE = interactions_filtered['last_watch_dt'].max()
+    TEST_INTERVAL_DAYS = 14
     
-    # TEST_MAX_DATE = MAX_DATE - dt.timedelta(days = TEST_INTERVAL_DAYS)
+    TEST_MAX_DATE = MAX_DATE - dt.timedelta(days = TEST_INTERVAL_DAYS)
     
-    # # define global train and test
-    # global_train = interactions_filtered.loc[interactions_filtered['last_watch_dt'] < TEST_MAX_DATE]
-    # global_test = interactions_filtered.loc[interactions_filtered['last_watch_dt'] >= TEST_MAX_DATE]
+    # define global train and test
+    global_train = interactions_filtered.loc[interactions_filtered['last_watch_dt'] < TEST_MAX_DATE]
+    global_test = interactions_filtered.loc[interactions_filtered['last_watch_dt'] >= TEST_MAX_DATE]
     
-    # # now, we define "local" train and test to use some part of the global train for ranker
-    # local_train_thresh = global_train['last_watch_dt'].quantile(q = .7, interpolation = 'nearest')
+    # joins user features
+    cbm_train_set = pd.merge(global_train, users_data[['user_id'] + settings.USER_FEATURES],
+                            how = 'left', on = ['user_id'])
+    cbm_test_set = pd.merge(global_test, users_data[['user_id'] + settings.USER_FEATURES],
+                            how = 'left', on = ['user_id'])
     
-    # global_train = global_train.dropna().reset_index(drop = True)
-    
-    # local_train = global_train.loc[global_train['last_watch_dt'] < local_train_thresh]
-    # local_test = global_train.loc[global_train['last_watch_dt'] >= local_train_thresh]
-    
-    # # finally, we will focus on warm start -- remove cold start users
-    # local_test = local_test.loc[local_test['user_id'].isin(local_train['user_id'].unique())]
-    
-    # # joins user features
-    # cbm_train_set = pd.merge(cbm_train_set, users_data[['user_id'] + settings.USER_FEATURES],
-    #                         how = 'left', on = ['user_id'])
-    # cbm_test_set = pd.merge(cbm_test_set, users_data[['user_id'] + settings.USER_FEATURES],
-    #                         how = 'left', on = ['user_id'])
-    
+    # joins item features
+    cbm_train_set = pd.merge(cbm_train_set, movies_metadata[['item_id'] + settings.ITEM_FEATURES],
+                            how = 'left', on = ['item_id'])
+    cbm_test_set = pd.merge(cbm_test_set, movies_metadata[['item_id'] + settings.ITEM_FEATURES],
+                            how = 'left', on = ['item_id'])
+        
+    x_train, y_train = cbm_train_set.drop(settings.ID_COLS + settings.DROP_COLS + settings.TARGET, axis = 1), cbm_train_set[settings.TARGET]
+    x_test, y_test = cbm_test_set.drop(settings.ID_COLS + settings.DROP_COLS + settings.TARGET, axis = 1), cbm_test_set[settings.TARGET]
     
     return x_train, y_train, x_test, y_test
     
