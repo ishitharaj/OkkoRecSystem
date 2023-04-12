@@ -25,7 +25,7 @@ def get_recommendations(user_id: int):
     candidates = lfm_model.infer(user_id = user_id) #FIXME: remove comment when feaature collection is done
 
     logging.info('getting features...')
-    user_features = get_user_features(user_id, user_cols=settings.USER_FEATURES)
+    # user_features = get_user_features(user_id, user_cols=settings.USER_FEATURES)
     item_features = get_items_features(item_ids = list(candidates.keys()), item_cols = candidates)
 
     # No need --->
@@ -47,12 +47,12 @@ def get_recommendations(user_id: int):
     #             }
     #         }
 
-    # user_features = {
-    #         'age': 'age_55_64',
-    #         'income': 'income_20_40',
-    #         'sex': 'M',
-    #         'kids_flg': 0
-    #     }
+    user_features = {
+            'age': 'age_55_64',
+            'income': 'income_20_40',
+            'sex': 'M',
+            'kids_flg': 0
+        }
     # End No need ---->
 
     ranker_input = prepare_ranker_input(
