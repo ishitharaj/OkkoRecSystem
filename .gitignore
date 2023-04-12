@@ -1,0 +1,5 @@
+# general things to ignore
+__pycache__/
+artefacts/lfm_mapper.dill
+artefacts/lfm_model.dill
+artefacts/data/interactions_df.csv

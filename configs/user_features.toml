@@ -5,4 +5,4 @@ DATASET_PATH = "artefacts/data/"
 ID_COLS = ['user_id', 'item_id']
 TARGET = ['target']
 CATEGORICAL_COLS = ['age', 'income', 'sex', 'content_type']
-DROP_COLS = ['item_name', 'last_watch_dt', 'watched_pct', 'total_dur']
+DROP_COLS = ['last_watch_dt', 'watched_pct', 'total_dur']

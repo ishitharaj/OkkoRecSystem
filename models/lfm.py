@@ -10,7 +10,7 @@ from lightfm.data import Dataset
 
 class LFMModel:
     def __init__(self):
-        pass
+        self.lfm = None
 
     @staticmethod
     def df_to_tuple_iterator(data: pd.DataFrame):
@@ -55,6 +55,8 @@ class LFMModel:
             max_sampled=model_params.get("max_sampled", 10),
             random_state=model_params.get("random_state", 42),
         )
+        
+        self.lfm = lfm_model
 
         # execute training
         for i in range(epochs):

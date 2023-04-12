@@ -43,7 +43,7 @@ class Ranker:
             X_train,
             y_train,
             eval_set=(X_test, y_test),
-            early_stopping_rounds=100,  # to avoid overfitting,
+            early_stopping_rounds=1,  # to avoid overfitting, # use 100
             cat_features=categorical_cols,
         )
 

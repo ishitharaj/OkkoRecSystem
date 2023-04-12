@@ -7,25 +7,28 @@ from configs.config import settings
 from models.lfm import LFMModel
 from models.ranker import Ranker
 from data_prep.prepare_ranker_data import prepare_data_for_train
+from utils.utils import prepare_interaction_data
 
 paths_config = {
-        "interactions_data": "artefacts\data\interactions_df.csv",
-        "users_data": "artefacts\data\items.csv",
-        "items_data": "artefacts\data\items.csv",
-    }
+        "interactions_data": "artefacts/data/interactions_df.csv",
+        "users_data": "artefacts/data/users.csv",
+        "items_data": "artefacts/data/items.csv"
+        }
 
 interactions = pd.read_csv(paths_config["interactions_data"])
+movies_metadata = pd.read_csv(paths_config["items_data"])
 
 lfm = LFMModel()
 ranker = Ranker()
 
+global_train, global_test, local_train, local_test = prepare_interaction_data(paths_config)
 lfm.fit(
-    interactions,
+    local_train, # used prepated data rathar than pure interactions, need review
     'user_id',
     'item_id',
     # change parameters as needed
     {
-        "epochs":10,
+        "epochs":1,
         "no_components":10,
         "learning_rate":0.05,
         "loss":"logistic",
@@ -34,5 +37,19 @@ lfm.fit(
     }
 )
 
-x_train, y_train, x_test, y_test= prepare_data_for_train(paths_config)
-ranker.fit(x_train, y_train, x_test, y_test)
+x_train, y_train, x_test, y_test = prepare_data_for_train(paths_config, lfm.lfm, global_train, global_test, local_train, local_test)
+ranker.fit(
+    x_train, 
+    y_train, 
+    x_test, 
+    y_test, 
+    {
+        "loss_function": "CrossEntropy",
+        "iterations":5000,
+        "learning_rate":.1,
+        "depth":6,
+        "random_state":1234,
+        "verbose":True,
+    },
+    settings.CATEGORICAL_COLS
+    )
