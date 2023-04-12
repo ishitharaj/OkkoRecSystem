@@ -23,7 +23,7 @@ ranker = Ranker()
 
 global_train, global_test, local_train, local_test = prepare_interaction_data(paths_config)
 lfm.fit(
-    local_train, # used prepated data rathar than pure interactions, need review
+    interactions,
     'user_id',
     'item_id',
     # change parameters as needed

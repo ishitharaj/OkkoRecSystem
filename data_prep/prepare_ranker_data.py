@@ -144,14 +144,12 @@ def get_items_features(item_ids: List[int], item_cols: List[str]) -> Dict[int, A
     """
 
     paths_config = {
-        "interactions_data": "artefacts\data\interactions_df.csv",
-        "users_data": "artefacts\data\items.csv",
-        "items_data": "artefacts\data\items.csv",
-    }
-
+        "interactions_data": "artefacts/data/interactions_df.csv",
+        "users_data": "artefacts/data/users.csv",
+        "items_data": "artefacts/data/items.csv"
+        }
 
     movies_data = pd.read_csv(paths_config["items_data"])
-
     item_df = movies_data[movies_data['item_id'].isin(item_ids)][['item_id',
                                                                   'content_type',
                                                                   'release_year',
@@ -196,7 +194,13 @@ def get_user_features(user_id: int, user_cols: List[str]) -> Dict[str, Any]:
         'kids_flg': None
     }
     """
-    users_data = pd.read_csv("artefacts/data/users.csv")
+    
+    paths_config = {
+        "interactions_data": "artefacts/data/interactions_df.csv",
+        "users_data": "artefacts/data/users.csv",
+        "items_data": "artefacts/data/items.csv"
+        }
+    users_data = pd.read_csv(paths_config["users_data"])
     return users_data.loc[users_data['user_id'] == user_id][user_cols].to_dict('records')[0]
 
 
