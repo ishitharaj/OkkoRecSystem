@@ -16,11 +16,14 @@ Here we have the full pipeline to train and make inference using two-level model
 
 ## DEV Guide  
 
-### To install dependencies from poetry lock file:
-1. Install poetry in your env
-2. ``` poetry install ``` or ``` poetry run python train.py ```, ``` poetry run python train.py ```
-- `python train.py train_lfm` - runs training pipeline for candidates model (run within created env);
-- `python train.py train_cbm` - runs ranker training pipeline (takes a while)
+### To install dependencies from poetry:
+1. ``` pip install poetry ```  
+2. ``` poetry config virtualenvs.in-project true```  
+3. ``` poetry install```  
+4.  Run poetry run ```pip install lightfm==1.17 --no-use-pep517``` to workaround install lfm model issue  
+5. ``` poetry shell ``` 
+6. ``` poetry run python train.py train_lfm ``` runs training pipeline for candidates model (run within created env)  
+7. ``` poetry run python train.py train_cbm ``` runs ranker training pipeline (takes a while)  
 
 ### Team Members:  
   

@@ -1,19 +1,19 @@
 [tool.poetry]
 name = "recsys"
 version = "0.1.0"
-description = "Rekko Handbook Dependencies"
-authors = ["Shuhrat Khalilbekov <khalilbekov92@gmail.com>"]
+description = "Dependencies"
+authors = [""]
 license = "CCBY-4.0"
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = "^3.10"
 pip = ">=20.0.2"
 numpy = "1.23.3"
 pandas = "1.5.1"
 scikit-learn = "1.2.1"
-catboost = "1.1"
+catboost = "1.2"
 scipy = "1.9.3"
-lightfm = "^1.17"
+# lightfm = "^1.17"
 dill = "^0.3.6"
 fire = "^0.5.0"
 dynaconf = "^3.1.12"

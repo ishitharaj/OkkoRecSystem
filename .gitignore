@@ -3,3 +3,5 @@ __pycache__/
 artefacts/lfm_mapper.dill
 artefacts/lfm_model.dill
 artefacts/data/interactions_df.csv
+.venv
+temp
