@@ -57,4 +57,4 @@ def save_model(model: object, path: str):
 def load_model(path: str):
     with open(path, "rb") as obj_file:
         obj = dill.load(obj_file)
-    return
+    return obj

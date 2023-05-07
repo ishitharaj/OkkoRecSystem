@@ -1,8 +1,11 @@
 import json
-
+import sys
+#sys.path.append(r"C:\Users\Ishitha\Desktop\dev\OkkoRecSystem")
 from flask import Flask, request
 
 from inference import get_recommendations
+
+# append modules path
 
 
 app = Flask(__name__)
@@ -14,7 +17,6 @@ def access_param():
     return json.dumps(responce)
 
 app.run(debug=True, host="0.0.0.0", port=5000)
-
 # http://127.0.0.1:5000/index?id=646321
 # http://127.0.0.1:5000/index?id=1047345
 # CHECK THAT IT WORKS!

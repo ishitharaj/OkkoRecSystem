@@ -1,11 +1,10 @@
 import logging
 from typing import Dict, List
-
 import catboost as cb
 import pandas as pd
-
 from configs.config import settings
 
+logging.basicConfig(level=logging.INFO)
 
 class Ranker:
     def __init__(self, is_infer=True):

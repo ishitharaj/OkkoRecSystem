@@ -1,6 +1,5 @@
 import logging
 from typing import Any, Dict
-
 import numpy as np
 import pandas as pd
 from lightfm import LightFM
@@ -9,6 +8,7 @@ from lightfm.data import Dataset
 from configs.config import settings
 from utils.utils import load_model, save_model
 
+logging.basicConfig(level=logging.INFO)
 
 class LFMModel:
     def __init__(self, is_infer=True):

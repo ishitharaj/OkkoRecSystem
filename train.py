@@ -4,10 +4,10 @@ from models.lfm import LFMModel
 from models.ranker import Ranker
 from utils.utils import read_parquet_from_gdrive
 from data_prep.prepare_ranker_data import prepare_data_for_train
-
 from fire import Fire
-
 import logging
+
+logging.basicConfig(level=logging.INFO)
 
 def train_lfm(data_path: str = None) -> None:
     """
@@ -29,7 +29,6 @@ def train_lfm(data_path: str = None) -> None:
         user_col='user_id',
         item_col='item_id'
     )
-    print('Finished training LightFM model!')
     logging.info('Finished training LightFM model!')
 
 def train_ranker():
@@ -39,9 +38,10 @@ def train_ranker():
     """
 
     X_train, X_test, y_train, y_test = prepare_data_for_train()
+    print("ranker 1")
     ranker = Ranker(is_infer = False) # train mode
+    print("ranker 2")
     ranker.fit(X_train, y_train, X_test, y_test)
-    print('Finished training Ranker model!')
     logging.info('Finished training Ranker model!')
 
 if __name__ == '__main__':
