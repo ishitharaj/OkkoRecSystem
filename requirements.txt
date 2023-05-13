@@ -7,3 +7,6 @@ dynaconf==3.1.12
 flask==2.2.3
 scikit-learn==1.2.1
 scipy==1.9.3
+fastparquet==2023.2.0
+pyarrow==11.0.0
+

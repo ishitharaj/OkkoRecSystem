@@ -23,6 +23,10 @@ Here we have the full pipeline to train and make inference using two-level model
 4.  Run poetry run ```pip install lightfm==1.17 --no-use-pep517``` to workaround install lfm model issue  
 5. ``` poetry run python train.py train_lfm ``` runs training pipeline for candidates model (run within created env)  
 6. ``` poetry run python train.py train_cbm ``` runs ranker training pipeline (takes a while)  
+  
+### To deploy model
+```./start.sh ``` - To run containers  
+```./reset.sh``` - To remove containers  
 
 ### Team Members:  
   
