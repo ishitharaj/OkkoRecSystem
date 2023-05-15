@@ -32,7 +32,7 @@ Here we have the full pipeline to train and make inference using two-level model
   
 Ishitha Rajapakse  
 Elena Tkachenko @el-tka  
-Nikita Markin @  
-Victoria Matskovskaya @viktoriyams 
+Nikita Markin @nmarkin  
+Victoria Matskovskaya @viktoriyams  
 
 

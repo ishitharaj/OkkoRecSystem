@@ -57,7 +57,7 @@ class Ranker:
         """
         inference for the output from lfm model
         :user_id:
-        :candidates: dict with ranks {"item_id": 1, ...}
+        :candidates: dict with ranks {"movie_id": 1, ...}
         """
 
         logging.info("making predictions...")

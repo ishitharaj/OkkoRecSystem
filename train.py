@@ -16,7 +16,9 @@ def train_lfm(data_path: str = None) -> None:
     """
     if data_path is None:
         logging.warning('Local data path is not set... Using default from GDrive')
-        data = read_parquet_from_gdrive('https://drive.google.com/file/d/1MomVjEwY2tPJ845zuHeTPt1l53GX2UKd/view?usp=share_link')
+        # data = read_parquet_from_gdrive('https://drive.google.com/file/d/1MomVjEwY2tPJ845zuHeTPt1l53GX2UKd/view?usp=share_link')
+        ## INTERACTIONS_DATA_PATH
+        data = read_parquet_from_gdrive('https://drive.google.com/file/d/1hLLRgi9wZ7TVYcUvrJR4bilN6OUfHhKD/view?usp=share_link')
 
     else:
         logging.info(f'Reading data from local path: {data_path}')
@@ -27,7 +29,7 @@ def train_lfm(data_path: str = None) -> None:
     lfm.fit(
         data,
         user_col='user_id',
-        item_col='item_id'
+        item_col='movie_id'
     )
     logging.info('Finished training LightFM model!')
 

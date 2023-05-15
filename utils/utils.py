@@ -79,6 +79,6 @@ class JsonEncoder(json.JSONEncoder):
 
 def item_name_mapper():
     movies_metadata = pd.read_csv("artefacts\data\items.csv")
-    res = dict(zip(movies_metadata['item_id'], movies_metadata['title']))
+    res = dict(zip(movies_metadata['movie_id'], movies_metadata['title']))
     with open('artefacts\item_name_mapper_data.pkl', 'wb') as fp:
         pickle.dump(res, fp)
