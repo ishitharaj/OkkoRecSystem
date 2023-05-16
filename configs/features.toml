@@ -1,4 +1,4 @@
-USER_FEATURES = ["age", "income", "sex", "kids_flg"]
-ITEM_FEATURES = ["content_type", "release_year", "for_kids", "age_rating"]
+USER_FEATURES = ['fav_actor', 'fav_director', 'fav_country', 'fav_genre']
+ITEM_FEATURES = ['released_month','released_year', 'watched_ratio', 'rewatches', 'popularity','median_watch', 'avg_watch', 'duration', 'age_rating', 'entity_type', 'main_genre', 'main_actor', 'main_director', 'main_country', 'fav_actor', 'fav_director', 'fav_country', 'fav_genre']
 TARGET = ["target"]
-CATEGORICAL_COLS = ["age", "income", "sex", "content_type"]
+CATEGORICAL_COLS = ['entity_type', 'main_genre', 'main_actor', 'main_director', 'main_country', 'fav_actor', 'fav_director', 'fav_country', 'fav_genre']

@@ -42,13 +42,13 @@ def get_recommendations(user_id: int, top_k: int = 20):
 
     return output
 
-# if __name__ == '__main__':
-#     recs = get_recommendations(973171)
-#     recs_df = pd.DataFrame(columns=['movie_id', 'title'])
-#     recs_df['movie_id'] = [key for key in recs.keys()]
-#     with open('artefacts\item_name_mapper_data.pkl', 'rb') as fp:
-#         items_data = pickle.load(fp)
-#         recs_df['title'] = recs_df['movie_id'].map(items_data)
-#         print(list(recs_df['title']))
+if __name__ == '__main__':
+    recs = get_recommendations(228019116)
+    recs_df = pd.DataFrame(columns=['movie_id', 'title'])
+    recs_df['movie_id'] = [key for key in recs.keys()]
+    with open('artefacts\item_name_mapper_data.pkl', 'rb') as fp:
+        items_data = pickle.load(fp)
+        recs_df['title'] = recs_df['movie_id'].map(items_data)
+        print(list(recs_df['title']))
         
     
