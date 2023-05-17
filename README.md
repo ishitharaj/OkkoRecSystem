@@ -25,6 +25,9 @@ Here we have the full pipeline to train and make inference using two-level model
 6. ``` poetry run python train.py train_cbm ``` runs ranker training pipeline (takes a while)  
   
   
+#### Note : To get recommendations, first you need to train LFM model. It will generate required files in the artifacts/data folder.  
+  
+
 ### To To test your model and get prediction  
 ```poetry run python .\models\pipeline.py``` - - runs API locally (Then check http://127.0.0.1:8000//get_recommendation?user_id=176549&top_k=10)  
 
