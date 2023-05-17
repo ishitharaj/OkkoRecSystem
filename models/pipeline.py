@@ -2,8 +2,8 @@ import logging
 import pandas as pd
 import pickle
 
-# import sys
-# sys.path.append(r"C:\Users\Ishitha\Desktop\dev\OkkoRecSystem")
+import sys
+sys.path.insert(1, '/app')
 
 logging.basicConfig(level=logging.INFO)
 
@@ -62,10 +62,11 @@ def get_recommendations(
             "recommendations_titles": list(recs_df['title']),
             "status": "success",
             "msg": None,
+            "Response": str(list(recs_df['title']))
         }
 
     except Exception as e:
-        output = {"recommendations": None, "recommendations_titles": None, "status": "error", "msg": str(e)}
+        output = {"recommendations": None, "recommendations_titles": None, "status": "error", "msg": str(e), "Response":None}
 
     return output
 

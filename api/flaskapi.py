@@ -8,6 +8,7 @@ from models.pipeline import get_recommendations
 from flask import Flask, request
 import json
 
+
 # init application
 app = Flask(__name__)
 
@@ -16,7 +17,7 @@ with app.app_context():
     ranker = Ranker()
 
 # set url to get predictions
-@app.route('/predict')
+@app.route('/get_recommendation')
 def run():
     user_id = int(request.args.get('user_id'))
     top_k = int(request.args.get('top_k', 20))

@@ -30,8 +30,18 @@ EXPOSE 8080
 
 # load the models and start the app
 CMD ["python", "api/flaskapi.py"]
-#docker run -p 8080:8080 project_name -- run container
-#docker build --platform=linux/amd64 . -t recsys_api
+
+# docker build --platform=linux/amd64 . -t recsys_api
+# docker run -p 8080:8080 recsys_api
+# http://127.0.0.1:8080/get_recommendation?user_id=790772
+# http://127.0.0.1:8080/get_recommendation?user_id=228319880
+# http://127.0.0.1:8080/get_recommendation?user_id=202914785
+
+
+
+
+
+
 
 ## Option 2
 # FROM python:3.9-slim-bullseye

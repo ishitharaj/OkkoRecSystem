@@ -184,7 +184,10 @@ def get_items_features(item_ids: List[int], item_cols: List[str]) -> Dict[int, A
         }
     }
     """
-    item_features =pd.read_parquet("artefacts\data\clean_movies.parquet")
+    # for windows
+    # item_features =pd.read_parquet("artefacts\data\clean_movies.parquet")
+    # for linux
+    item_features =pd.read_parquet("artefacts/data/clean_movies.parquet")
 
     item_features = item_features.set_index("movie_id")
     item_features = item_features.to_dict("index")
@@ -212,7 +215,10 @@ def get_user_features(user_id: int, user_cols: List[str]) -> Dict[str, Any]:
     }
     """
     # get interactions data to create user data
-    interactions = pd.read_parquet("artefacts\data\clean_inter.parquet")
+    # for windows
+    # interactions = pd.read_parquet("artefacts\data\clean_inter.parquet")
+    # for linux
+    interactions = pd.read_parquet("artefacts/data/clean_inter.parquet")
         
     users = interactions.drop(columns=['movie_id', 'year', 'month', 'day', 'watch_duration_minutes', 'watched_ratio'])
     users = users.drop_duplicates()
