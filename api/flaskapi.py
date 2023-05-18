@@ -5,7 +5,7 @@ from models.ranker import Ranker
 
 from utils.utils import JsonEncoder
 from models.pipeline import get_recommendations
-from flask import Flask, request
+from flask import Flask, request, jsonify, current_app, make_response
 import json
 
 
@@ -27,7 +27,12 @@ def run():
         ranker = ranker,
         top_k = top_k
     )
-    return json.dumps(response,ensure_ascii=False, cls = JsonEncoder)
+    
+    response = jsonify(response)
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    
+    return response
+    # return json.dumps(response,ensure_ascii=False, cls = JsonEncoder)
 
 if __name__ == '__main__':
     app.run(debug=True, host="0.0.0.0", port=8080)
