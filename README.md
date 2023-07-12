@@ -36,11 +36,5 @@ Here we have the full pipeline to train and make inference using two-level model
 ```./start.sh ``` - To run containers  
 ```./reset.sh``` - To remove containers  
 
-### Team Members:  
-  
-Ishitha Rajapakse  
-Elena Tkachenko @el-tka  
-Nikita Markin @nmarkin  
-Victoria Matskovskaya @viktoriyams  
 
 
